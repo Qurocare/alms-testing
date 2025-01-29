@@ -12,7 +12,7 @@ Base = declarative_base()
 
 # ✅ Establish database connection
 try:
-    db_url = st.secrets["connections"]["attendance_db"]["url"]
+    db_url = st.secrets["connections"]["attendance1_db"]["url"]
     engine = create_engine(db_url)
     Session = sessionmaker(bind=engine)
     conn = Session()
