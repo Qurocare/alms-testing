@@ -6,8 +6,12 @@ from sqlalchemy.orm import sessionmaker
 import smtplib
 from email.message import EmailMessage
 
+# Use a path relative to the app's current working directory
+db_path = os.path.join(os.getcwd(), 'attendance.db')
+engine = create_engine(f"sqlite:///{db_path}")
+
 # Database setup
-engine = create_engine("sqlite:///attendance.db")
+# engine = create_engine("sqlite:///attendance.db")
 Base = declarative_base()
 
 # Employee table
