@@ -7,22 +7,11 @@ from sqlalchemy.orm import sessionmaker
 import smtplib
 from email.message import EmailMessage
 
-import os
-print("Current working directory:", os.getcwd())
+# Create SQLAlchemy engine using the connection URL from Streamlit secrets
+engine = st.connection('attendance_db', type='sql')
 
-# Define the base for SQLAlchemy models
+# Declare the base for your SQLAlchemy models
 Base = declarative_base()
-
-# Database path
-db_path = os.path.join(os.getcwd(), 'attendance.db')
-engine = create_engine(f"sqlite:///{db_path}")
-
-# Create the database if it doesn't exist
-if not os.path.exists(db_path):
-    print("Creating the database...")
-    Base.metadata.create_all(engine)
-else:
-    print("Database already exists.")
 
 # Database Models (Employee, Attendance, Leave)
 class Employee(Base):
@@ -53,6 +42,10 @@ class Leave(Base):
     start_date = Column(DateTime, nullable=False)
     end_date = Column(DateTime, nullable=False)
     reason = Column(String, nullable=False)
+
+# Create all tables (if they don't exist yet)
+with engine.session() as session:
+    Base.metadata.create_all(engine)
 
 # Initialize Session
 Session = sessionmaker(bind=engine)
