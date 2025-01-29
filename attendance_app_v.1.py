@@ -17,6 +17,10 @@ try:
     Session = sessionmaker(bind=engine)
     conn = Session()
     st.success("✅ Database connected successfully!")
+
+    # Print the database URL to check where it's being stored
+    st.write(f"Database URL: {db_url}")
+
 except Exception as e:
     st.error(f"❌ Database connection failed: {e}")
 
