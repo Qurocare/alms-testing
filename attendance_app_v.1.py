@@ -7,6 +7,9 @@ from sqlalchemy.orm import sessionmaker
 import smtplib
 from email.message import EmailMessage
 
+import os
+print("Current working directory:", os.getcwd())
+
 # Define the base for SQLAlchemy models
 Base = declarative_base()
 
