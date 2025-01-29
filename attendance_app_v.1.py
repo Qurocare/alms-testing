@@ -44,11 +44,11 @@ class Leave(Base):
     reason = Column(String, nullable=False)
 
 # Create all tables (if they don't exist yet)
-with engine.session() as session:
-    Base.metadata.create_all(engine)
+with conn.session() as session:
+    Base.metadata.create_all(conn.engine)
 
-# Initialize Session
-Session = sessionmaker(bind=engine)
+# Initialize session
+Session = sessionmaker(bind=conn.engine)
 session = Session()
 
 # Streamlit app
